@@ -1,0 +1,255 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>HW1</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-02-11"><meta name="DC.source" content="HW1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">MAE 562 HW1 Gabriel Colangelo 50223306</a></li><li><a href="#2">Problem 2.13</a></li><li><a href="#3">Problem 2.18</a></li><li><a href="#4">Function Definitions</a></li></ul></div><h2 id="1">MAE 562 HW1 Gabriel Colangelo 50223306</h2><pre class="codeinput">clear
+close <span class="string">all</span>
+clc
+</pre><h2 id="2">Problem 2.13</h2><pre class="codeinput">m       = 1                                                             ; <span class="comment">% mass [kg]</span>
+x0      = 0.25                                                          ; <span class="comment">% unstretched spring length [m]</span>
+k       = 1                                                             ; <span class="comment">% Spring stiffness [N/m]</span>
+c       = 5                                                             ; <span class="comment">% Spring constant [N/m^3]</span>
+
+IC      = [.4 0]'                                                       ; <span class="comment">% Initial conditions of 0.4 [m] and 0 [m/s]</span>
+time    = (0:.01:20)'                                                   ; <span class="comment">% Time vector for 0-20 [s]</span>
+options = odeset(<span class="string">'AbsTol'</span>,1e-8,<span class="string">'RelTol'</span>,1e-8)                           ; <span class="comment">% ODE45 solver options</span>
+
+[T1,Z1] = ode45(@(t,z) LinearSpring(t,z,m,x0,k),time,IC,options)        ; <span class="comment">% Linear Spring Simulation</span>
+[T2,Z2] = ode45(@(t,z) NonlinearSpring(t,z,m,x0,k,c),time,IC,options)   ; <span class="comment">% NonLinear Spring Simulation</span>
+
+figure
+ax1 = subplot(2,1,1);
+plot(T1,Z1(:,1),T2,Z2(:,1))
+xlabel(<span class="string">'Time [s]'</span>)
+ylabel(<span class="string">'Position Response [m]'</span>)
+grid <span class="string">minor</span>
+title(<span class="string">'Linear and Nonlinear Spring Trajectories'</span>)
+legend(<span class="string">'Linear Spring'</span>,<span class="string">'Nonlinear Spring'</span>)
+
+ax2 = subplot(2,1,2);
+plot(T1,Z1(:,2),T2,Z2(:,2))
+xlabel(<span class="string">'Time [s]'</span>)
+ylabel(<span class="string">'Velocity Response [m/s]'</span>)
+grid <span class="string">minor</span>
+legend(<span class="string">'Linear Spring'</span>,<span class="string">'Nonlinear Spring'</span>)
+linkaxes([ax1 ax2],<span class="string">'x'</span>)
+</pre><img vspace="5" hspace="5" src="HW1_01.png" alt=""> <h2 id="3">Problem 2.18</h2><pre class="codeinput">M       = 5.9742e24                                                         ; <span class="comment">% Mass of Earth [kg]</span>
+Re      = 6378100                                                           ; <span class="comment">% Radius of Earth [m]</span>
+G       = 6.673e-11                                                         ; <span class="comment">% Gravitational Constant [m^3/kg-s^2]</span>
+h       = 7000                                                              ; <span class="comment">% Scale height of atmoshere [m]</span>
+m       = 10                                                                ; <span class="comment">% Particle mass [kg]</span>
+IC      = [1000 0]'                                                         ; <span class="comment">% Initial condition of 1000 m and 0 m/s</span>
+
+[T3,Z3] = ode45(@(t,z) FallingParticle(t,z,M,G,Re,m,h),time,IC,options)     ; <span class="comment">% Linear Spring Simulation</span>
+
+figure
+ax1 = subplot(2,1,1);
+plot(T3,Z3(:,1))
+xlabel(<span class="string">'Time [s]'</span>)
+ylabel(<span class="string">'Position [m]'</span>)
+grid <span class="string">minor</span>
+title(<span class="string">'Falling Particle Trajectory'</span>)
+
+ax2 = subplot(2,1,2);
+plot(T3,Z3(:,2))
+line([0 20],[min(Z3(:,2)) min(Z3(:,2))],<span class="string">'Color'</span>,<span class="string">'red'</span>,<span class="string">'LineStyle'</span>,<span class="string">'--'</span>)
+line([0  20],[-44.2945  -44.2945],<span class="string">'Color'</span>,<span class="string">'black'</span>,<span class="string">'LineStyle'</span>,<span class="string">'--'</span>)
+xlabel(<span class="string">'Time [s]'</span>)
+legend(<span class="string">'Particle Velocity'</span>,<span class="string">'Terminal Velocity'</span>,<span class="string">'Tutorial 2.5  Terminal Velocity'</span>)
+ylabel(<span class="string">'Velocity [m/s]'</span>)
+grid <span class="string">minor</span>
+
+linkaxes([ax1 ax2],<span class="string">'x'</span>)
+</pre><img vspace="5" hspace="5" src="HW1_02.png" alt=""> <h2 id="4">Function Definitions</h2><pre class="codeinput"><span class="keyword">function</span> zdot = LinearSpring(t,z,m,x0,k)
+z1          = z(1,1); <span class="comment">% z1 = x</span>
+z2          = z(2,1); <span class="comment">% z2 = xdot</span>
+
+<span class="comment">% Equations of motion is first order form</span>
+zdot(1,1)   = z2;
+zdot(2,1)   = -k/m*(z1 - x0);
+
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> zdot = NonlinearSpring(t,z,m,x0,k,c)
+z1          = z(1,1); <span class="comment">% z1 = x</span>
+z2          = z(2,1); <span class="comment">% z2 = xdot</span>
+
+<span class="comment">% Equations of motion is first order form</span>
+zdot(1,1)   = z2;
+zdot(2,1)   = (-k/m*(z1 - x0)) -(c/m*(z1 - x0)^3);
+
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> zdot = FallingParticle(t,z,M,G,Re,m,h)
+z1          = z(1,1); <span class="comment">% z1 = y</span>
+z2          = z(2,1); <span class="comment">% z2 = ydot</span>
+
+<span class="comment">% Equations of motion is first order form</span>
+zdot(1,1)   = z2;
+zdot(2,1)   = (-G*M/(Re + z1)^2) + (z2^2*(.05/m)*exp(-z1/h));
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% MAE 562 HW1 Gabriel Colangelo 50223306
+
+clear
+close all
+clc
+
+%% Problem 2.13
+
+m       = 1                                                             ; % mass [kg]
+x0      = 0.25                                                          ; % unstretched spring length [m]
+k       = 1                                                             ; % Spring stiffness [N/m]
+c       = 5                                                             ; % Spring constant [N/m^3]
+
+IC      = [.4 0]'                                                       ; % Initial conditions of 0.4 [m] and 0 [m/s]
+time    = (0:.01:20)'                                                   ; % Time vector for 0-20 [s]
+options = odeset('AbsTol',1e-8,'RelTol',1e-8)                           ; % ODE45 solver options
+
+[T1,Z1] = ode45(@(t,z) LinearSpring(t,z,m,x0,k),time,IC,options)        ; % Linear Spring Simulation
+[T2,Z2] = ode45(@(t,z) NonlinearSpring(t,z,m,x0,k,c),time,IC,options)   ; % NonLinear Spring Simulation
+
+figure
+ax1 = subplot(2,1,1);
+plot(T1,Z1(:,1),T2,Z2(:,1))
+xlabel('Time [s]')
+ylabel('Position Response [m]')
+grid minor
+title('Linear and Nonlinear Spring Trajectories')
+legend('Linear Spring','Nonlinear Spring')
+
+ax2 = subplot(2,1,2);
+plot(T1,Z1(:,2),T2,Z2(:,2))
+xlabel('Time [s]')
+ylabel('Velocity Response [m/s]')
+grid minor
+legend('Linear Spring','Nonlinear Spring')
+linkaxes([ax1 ax2],'x')
+
+%% Problem 2.18
+
+M       = 5.9742e24                                                         ; % Mass of Earth [kg]
+Re      = 6378100                                                           ; % Radius of Earth [m]
+G       = 6.673e-11                                                         ; % Gravitational Constant [m^3/kg-s^2]
+h       = 7000                                                              ; % Scale height of atmoshere [m]
+m       = 10                                                                ; % Particle mass [kg]
+IC      = [1000 0]'                                                         ; % Initial condition of 1000 m and 0 m/s
+
+[T3,Z3] = ode45(@(t,z) FallingParticle(t,z,M,G,Re,m,h),time,IC,options)     ; % Linear Spring Simulation
+
+figure
+ax1 = subplot(2,1,1);
+plot(T3,Z3(:,1))
+xlabel('Time [s]')
+ylabel('Position [m]')
+grid minor
+title('Falling Particle Trajectory')
+
+ax2 = subplot(2,1,2);
+plot(T3,Z3(:,2))
+line([0 20],[min(Z3(:,2)) min(Z3(:,2))],'Color','red','LineStyle','REPLACE_WITH_DASH_DASH')
+line([0  20],[-44.2945  -44.2945],'Color','black','LineStyle','REPLACE_WITH_DASH_DASH')
+xlabel('Time [s]')
+legend('Particle Velocity','Terminal Velocity','Tutorial 2.5  Terminal Velocity')
+ylabel('Velocity [m/s]')
+grid minor
+
+linkaxes([ax1 ax2],'x')
+
+%% Function Definitions
+function zdot = LinearSpring(t,z,m,x0,k)
+z1          = z(1,1); % z1 = x
+z2          = z(2,1); % z2 = xdot
+
+% Equations of motion is first order form
+zdot(1,1)   = z2;
+zdot(2,1)   = -k/m*(z1 - x0);
+
+end 
+
+function zdot = NonlinearSpring(t,z,m,x0,k,c)
+z1          = z(1,1); % z1 = x
+z2          = z(2,1); % z2 = xdot
+
+% Equations of motion is first order form
+zdot(1,1)   = z2;
+zdot(2,1)   = (-k/m*(z1 - x0)) -(c/m*(z1 - x0)^3);
+
+end 
+
+function zdot = FallingParticle(t,z,M,G,Re,m,h)
+z1          = z(1,1); % z1 = y
+z2          = z(2,1); % z2 = ydot
+
+% Equations of motion is first order form
+zdot(1,1)   = z2;
+zdot(2,1)   = (-G*M/(Re + z1)^2) + (z2^2*(.05/m)*exp(-z1/h));
+end 
+##### SOURCE END #####
+--></body></html>
