@@ -1,0 +1,103 @@
+\documentclass[12pt]{report}
+\usepackage[a4paper]{geometry}
+\usepackage[myheadings]{fullpage}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{graphicx, wrapfig, subcaption, setspace, booktabs}
+\usepackage[T1]{fontenc}
+\usepackage[font=small, labelfont=bf]{caption}
+\usepackage{fourier}
+\usepackage[protrusion=true, expansion=true]{microtype}
+\usepackage[english]{babel}
+\usepackage{sectsty}
+\usepackage{url, lipsum}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\graphicspath{ {./images/}}
+
+
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+\onehalfspacing
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+%-------------------------------------------------------------------------------
+% HEADER & FOOTER
+%-------------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\setlength\headheight{15pt}
+\fancyhead[L]{Gabriel Colangelo}
+\fancyhead[R]{UBID: 50223306}
+\fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+%-------------------------------------------------------------------------------
+% TITLE PAGE
+%-------------------------------------------------------------------------------
+
+\begin{document}
+\title{ \normalsize \textsc{ }
+		\\ [2.0cm]
+		\HRule{0.5pt} \\
+		\LARGE \textbf{Proposal for the Comparison of an Extended and Unscented Kalman Filter for Attitude Estimation}
+		\HRule{2pt} \\ [0.5cm]
+		\normalsize  \vspace*{5\baselineskip}}
+
+
+
+\author{Gabriel Colangelo \\ 
+		University at Buffalo \\
+		MAE 674} 
+\date {10/15/2022}
+
+\maketitle
+\tableofcontents
+\newpage
+
+%-------------------------------------------------------------------------------
+% Section title formatting
+\sectionfont{\scshape}
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+% Part 1
+%-------------------------------------------------------------------------------
+\newpage
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+\noindent This paper serves as a project proposal, in which the performance of an Extended Kalman Filters (EKF) will be compared to the performance of an Unscented Kalman Filter (UKF). The EKFs and UKF will be applied to the problem of attitude estimation, or more particularly the dynamic attitude estimation problem. The EKF investigated in this project will be the Multiplicative Extended Kalman Filter. Both the EKF and UKF will be used to estimate the attitude of a rigid body, say a satellite, along with the drift observed in each of the gyroscopes along each axis. The gyroscope measurements will be combined with star tracker measurements to create a full dynamic attitude estimation problem. To perform this comparison, all filters will be fed the same initial conditions and sensor measurements. The parameters that will be compared are the accuracy of the attitude estimates along each axis and the filter run time. A short study will also be done on each filter’s sensitivity to initial conditions, which will be performed using Monte Carlo simulations.
+
+%This paper serves as a project proposal, in which the performance of various types of Extended Kalman Filters (EKFs) will be compared to the performance of an Unscented Kalman Filter (UKF). The EKFs and UKF will be applied to the problem of attitude estimation, or more particularly the dynamic attitude estimation problem. The EKFs investigated in this project will be the Multiplicative Extended Kalman Filter (MEKF) and the Additive Extended Kalman Filter (AEKF). Both EKFs and the UKF will be used to estimate the attitude of a rigid body, say a satellite, along with the drift observed in each of the gyroscopes along each axis. The gyroscope measurements will be combined with star tracker measurements to create a full dynamic attitude estimation problem. To perform this comparison, all filters will be fed the same initial conditions and sensor measurements. The parameters that will be compared are the accuracy of the attitude estimates along each axis and the filter run time. A short study will also be done on each filter’s sensitivity to initial conditions, which will be performed using Monte Carlo simulations.
+\newpage
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+\noindent The motivation for this proposed project comes from wanting to gain experience in dynamic attitude estimation methods, rather than typical deterministic attitude estimation methods such as the Triad method or Davenport's q-method.  Dynamic attitude estimation involves the combination of attitude measurements at varying times with gyroscope measurements [1]. There are many ways to parameterize attitude such as Euler angles, quaternions, and Rodrigues parameters. For each type of parameterization, specific solutions exist. For example, if attitude is parameterized using Modified Rodrigues Parameters (MRPs), a typical solution is to use an MRP-EKF, which is presented in Schaub and Junkins. Euler Angles are one of the more common choices for attitude parameterization. However, the use of Euler angles comes with a major disadvantage. This disadvantage being that singularities occur in the kinematic differential equations used to calculate Euler Angle rates, when the second rotation angle is equal to $\pm{90^\circ} $ [2]. To avoid this singularity, known as gimbal lock, this paper chooses to use quaternions as the preferred method of attitude parameterization. The kinematic differential equations are linear in the case of quaternions [3], therefore removing the previously discussed singularity and eliminating the need to integrate time consuming trigonometric functions [2].\\
+
+\noindent There are multiple conventions used for quaternion multiplication. This paper chooses to use the convention established by Lefferts, Markley, and Shuster rather than the convention used by Hamilton, who the discovery of the quaternion is typically attributed to [2]. The main difference between these conventions is that the convention used by Lefferts, Markley, and Shuster multiplies quaternions in the same order as the attitude matrices [3]. With the choice of the quaternion as the method for attitude parameterization, the dynamic attitude estimation problem can now be solved by using quaternion based Kalman filter solutions such as the Multiplicative Extended Kalman Filter (MEKF) and the Additive Extended Kalman Filter (AEKF) [1]. A formulation for the MEKF is given in Crassidis and Junkins, and this proposed project will explore its performance and implementation. The MEKF is typically preferred over the AEKF. This is primarily due to the MEKF being less computationally expensive because of the lower dimensionality of its covariance matrix and its attitude estimate being the unit quaternion [4]. This directly satisfies the quaternion unit norm constraint. The AEKF does not naturally satisfy the quaternion unit norm constraint, and the additive correction approach can destroy normalization [5]. Because of the work done by Markley showing the issues involved with AEKF, further investigation of the AEKF will not be performed unless time permits.\\ % The AEKF does not naturally satisfy the quaternion unit norm constraint, and the additive correction approach can destroy normalization [Crassidis and Junkins].To overcome this, Bar-Itzhack and Oshman present a method of implementation for the AEKF where the estimated quaternion is optimally normalized after each time it is updated. This project looks to explore if this normalization helps the AEKF perform similarly to the MEKF, and if it resolves the short comings of the AEKF.
+
+\noindent The EKF is not considered an optimal estimator and only performs well when a first order linearization can closely approximate nonlinear probability distributions [5]. This approximation tends to break down during initialization when inaccurate initial conditions are used. In this case, it is common to use an Unscented Kalman Filter (UKF). The UKF is more computationally involved than its EKF counterpart, but it provides a variety of benefits. This includes a lower expected error than the EKF, avoiding the computation of the Jacobian, and the UKF is also valid to higher order expansions in comparison to the EKF [5]. A quaternion based UKF is derived in the paper by Crassidis and Markley, which is referred to as the Unscented Quaternion Estimator (USQUE). The USQUE may handle large initial condition errors easily, however it does have a downside. The USQUE, like the AEKF, does not guarantee the estimated quaternion will satisfy the unit norm constraint and this form of the UKF also involves the decomposition of a 7x7 covariance matrix [Crassidis and Markley]. This project will look to compare the USQUE performance to that of the MEKF, and potentially the AEKF, and see if there is one method of quaternion based Kalman filtering that is superior for dynamic attitude estimation.\\
+
+\section*{Technical Plan and Expected Results}
+\addcontentsline{toc}{section}{Technical Plan and Expected Results}
+\noindent This section will discuss the proposed tests, procedures, and anticipated results. A gyroscope based model will be used for attitude propagation. A common model for a rate integrating gyroscope is given by the first order Markov process seen in Crassidis and Markley. The inertial body frame gyroscope measurements will be combined with attitude measurements from a star tracker, for a which a model is given in Crassidis and Junkins. The filters will be used to estimate the gyroscope biases, filter the star camera measurements, and finally calculate the attitude errors.\\ 
+
+\noindent A direct comparison of the attitude errors and gyro bias estimates generated by each filter will be performed by feeding both the UKF and EKF the same initial conditions and measurements. The run time for each filter will also be recorded and compared. The next portion of the project will be an initial condition sensitivity analysis, in which the initial conditions used in the first test will be normally distributed and fed into both filters, to be used in a Monte Carlo simulation. The current plan is to perform 100 simulations, and for each simulation record the mean attitude error and gyro bias for each axis, along with the run time.This analysis will look to see which initial condition errors have the greatest effect on the estimates and if any will cause the filters to go unstable. \\
+
+\noindent  Based on initial research and prior knowledge, some expected results can be listed. The UKF is known to more robustly handle initial condition errors than the EKF, so it is expected to outperform the EKF in the initial condition sensitivity analysis. However, the specific UKF to be implemented in this project does not guarantee the quaternion satisfies the unit norm constraint, which could cause the filter to perform unexpectedly and large attitude errors to propagate. In this case, the EKF could outperform the UKF due to the quaternion normalization breaking down because of initial condition errors. In terms of run times for the filters, the EKF has a smaller computational cost than the UKF. Therefore it is expected that the EKF will have a faster run time than the UKF. The previously discussed simulations look to validate or disprove these expectations. 
+
+\newpage
+\section*{References}
+\addcontentsline{toc}{section}{References}
+
+\noindent [1] Schaub, H. and Junkins, J.L., \textit{Analytical Mechanics of Space Systems - Fourth Edition}, American Institute of Aeronautics and Astronautics, Reston, Virginia, 2018.\\
+\noindent [2] Jekeli, C., \textit{Inertial Navigation with Geodetic Applications}, Walter de Gruyter, Berlin, Germany, 2000.\\
+\noindent [3] Crassidis, J.L., “Sigma-Point Kalman Filtering for Integrated GPS and Inertial Navigation,” \textit{AIAA Guidance, Navigation and Control Conference and Exhibit},
+San Francisco, California, August 2005.\\
+\noindent [4] Markley, L. \textit{Multiplicative vs. Additive Filtering for Spacecraft Attitude Determination}, NASA Goddard Space Flight Center, Greenbelt, MD, 2004. \\
+\noindent [5] Crassidis, J.L. and Junkins, J.L., \textit{Optimal Estimation of Dynamic Systems - Second Edition}, Chapman \& Hall/CRC, Boca Raton, FL, 2012.\\
+\noindent [6] Crassidis, J.L. and Markley, F.L., "Unscented Filtering for Spacecraft Attitude Estimation," \textit{Journal of Guidance, Control, and Dynamics}, Vol. 26, No. 4, July-Aug. 2003, pp. 536-542.
+
+
+
+
+\end{document}
