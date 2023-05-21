@@ -5,7 +5,7 @@ clc
 % Time
 dt      = 1;
 tend    = 3600;
-t       = [0:dt:tend]';
+t       = (0:dt:tend)';
 
 % True Angular Rate
 wtrue   = 0.0011;
@@ -77,7 +77,8 @@ sig3    = 3*sqrt(pcov);
 
 % Plot Results
 figure
-plot(t/60,[sig3(:,1) xe(:,1)-t*wtrue -sig3(:,1)]*1e6)
+% plot(t/60,[sig3(:,1) xe(:,1)-t*wtrue -sig3(:,1)]*1e6)
+plot(t/60, sig3(:,1)*1e6, '--r', t/60, -sig3(:,1)*1e6, '--r', t/60,(xe(:,1)-t*wtrue)*1e6)
 grid minor
 xlabel('Time (Min)');
 ylabel(' {Attitude Error ({\mu}rad)}');
