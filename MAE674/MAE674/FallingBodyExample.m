@@ -4,7 +4,7 @@ close all
 clc
 
 %% Generate Measurements
-dt      = 1;
+dt      = .02;
 tm      = 0:dt:60;
 t       = 0:.01:60;
 a       = 5e-5;     % Air density constant 
