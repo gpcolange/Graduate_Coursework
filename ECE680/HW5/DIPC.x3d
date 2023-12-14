@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.3//EN" "http://www.web3d.org/specifications/x3d-3.3.dtd">
+<X3D profile='Immersive' version='3.3' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.3.xsd'>
+<head>
+</head>
+<Scene>
+<Viewpoint fieldOfView='0.7854' position='0 0 4'>
+</Viewpoint>
+<Transform DEF='Cart'  rotation='0 1 0 0'>
+  <Shape>
+    <Appearance>
+      <Material diffuseColor='0 0.11 0.8'>
+      </Material>
+    </Appearance>
+    <Box size='0.5 0.2 0.2'>
+    </Box>
+  </Shape>
+  <Transform DEF='Rotation1' >
+    <Shape>
+      <Appearance>
+        <Material emissiveColor='1 0 0'>
+        </Material>
+      </Appearance>
+      <Sphere radius='0.05'>
+      </Sphere>
+    </Shape>
+    <Transform DEF='J11'  translation='0 0 0.12' rotation='1 0 0 1.5708'>
+      <Shape>
+        <Appearance>
+          <ImageTexture url='"*sl3dlib\\objects\\Textures\\General\\Checker.png" '>
+          </ImageTexture>
+        </Appearance>
+        <Cylinder radius='0.05' height='0.2'>
+        </Cylinder>
+      </Shape>
+      <Transform DEF='J12'  translation='0 0.07 -0.25' rotation='1 0 0 1.5708'>
+        <Shape>
+          <Cylinder radius='0.02' height='0.5'>
+          </Cylinder>
+        </Shape>
+        <Transform DEF='Rotation2'  translation='0 -0.25 0'>
+          <Shape>
+            <Appearance>
+              <Material diffuseColor='0.8 0 0'>
+              </Material>
+            </Appearance>
+            <Sphere radius='0.02'>
+            </Sphere>
+          </Shape>
+          <Transform DEF='J21'  translation='0 0 -0.03' rotation='1 0 0 1.5708'>
+            <Shape>
+              <Appearance>
+                <ImageTexture url='"*sl3dlib\\objects\\Textures\\General\\Checker.png" '>
+                </ImageTexture>
+              </Appearance>
+              <Cylinder radius='0.025' height='0.1'>
+              </Cylinder>
+            </Shape>
+            <Transform DEF='J22'  translation='0 -0.03 0.375' rotation='1 0 0 1.570796'>
+              <Shape>
+                <Cylinder radius='0.02' height='0.75'>
+                </Cylinder>
+              </Shape>
+              <Transform DEF='J23'  translation='0 0.375 0'>
+                <Shape>
+                  <Appearance>
+                    <Material diffuseColor='1 0 0'>
+                    </Material>
+                  </Appearance>
+                  <Sphere radius='0.05'>
+                  </Sphere>
+                </Shape>
+              </Transform>
+            </Transform>
+          </Transform>
+        </Transform>
+      </Transform>
+    </Transform>
+  </Transform>
+</Transform>
+</Scene>
+</X3D>
