@@ -80,3 +80,6 @@ e       = [(r1 - phi); (r1dot - C(1,:)*w);...
 % Closed loop dynamics
 xdot    = subs(simplify(f + g*U),[v1;v2;v3],K*e)
 
+% % Zero Dynamics
+u0      = simplify(G\-F)
+xdot0   = subs(simplify(f + g*u0),[phi;theta;psi],zeros(3,1))
