@@ -20,10 +20,8 @@ q2      = (DCM_B_N(3,1) - DCM_B_N(1,3))/(4*q4);
 q3      = (DCM_B_N(1,2) - DCM_B_N(2,1))/(4*q4);
 q       = [q1;q2;q3;q4];
 
-% Verify quaternion gives attitude matrix (Nav to Body)
-A_B_N   = [(q1^2 - q2^2 - q3^2 + q4^2), 2*(q1*q2 + q3*q4), 2*(q1*q3 - q2*q4);...
-           2*(q1*q2 - q3*q4), (-q1^2 + q2^2 - q3^2 + q4^2), 2*(q2*q3 + q1*q4);...
-           2*(q1*q3 + q2*q4), 2*(q2*q3 - q1*q4), (-q1^2 - q2^2 + q3^2 + q4^2)];
+% % Verify quaternion gives attitude matrix (Nav to Body)
+A_B_N   = Quaternion2DCM(q);
 
 % Check attitude matrix properties
 if (max(max(DCM_B_N - A_B_N)) > 1e-6) || (abs(det(A_B_N) - 1) > 1e-6) 

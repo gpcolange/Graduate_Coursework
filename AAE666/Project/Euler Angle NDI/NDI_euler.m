@@ -4,7 +4,14 @@ close all
 clc
 
 %% Setup Plant
-syms Ixx Iyy Izz Ixz w1 w2 w3 phi theta psi u1 u2 u3 rddot v real;
+syms Ixx Iyy Izz Ixz w1 w2 w3 phi theta psi u1 u2 u3 r1ddot r2ddot r3ddot r1dot...
+     r1 r2 r3 v1 v2 v3 Kp Kd r2dot r3dot real;
+
+% Feedforward acceleration
+rddot   = [r1ddot;r2ddot;r3ddot];
+
+% Auxiliary input
+v       = [v1;v2;v3];
 
 % Moment of Inertia Tensor
 I       = [Ixx 0 -Ixz; 0 Iyy 0; -Ixz 0 Izz];
@@ -48,9 +55,28 @@ Lf2h    = jacobian(Lfh,x)*f
 F       = Lf2h;
 G       = LgLfh;
 
+% Jacobian of inverse kinematics
+gamma   = [(w2*cos(phi)*tan(theta) - w3*sin(phi)*tan(theta)), (w2*sin(phi) + w3*cos(phi))/(cos(theta)^2) 0;...
+           (-w2*sin(phi) - w3*cos(phi)), 0, 0;
+           (w2*cos(phi) - w3*sin(phi))/cos(theta), (sin(theta)/(cos(theta)^2))*(w2*sin(phi) + w3*cos(phi)), 0];
+
 % Control Law: U = inv(G)*(-F + rddot + v)
 U       = simplify(G\(-F + rddot + v));
-U_hand  = inv(C*inv(I))*(-jacobian(C*w,eul)*C*w + C*inv(I)*(cross(w,I*w))...
+U_hand  = (I*inv(C))*(-gamma*C*w + C*inv(I)*(cross(w,I*w))...
           + rddot + v);
 simplify(U - U_hand);
+
+% Verify error is linear
+yddot   = simplify(F + G*U);
+
+% Control Gain Matrix
+K       = [Kp Kd 0 0 0 0; 0 0 Kp Kd 0 0; 0 0 0 0 Kp Kd];
+
+% Error vectors
+e       = [(r1 - phi); (r1dot - C(1,:)*w);...
+           (r2 - theta); (r2dot - C(2,:)*w);...
+           (r3 - psi); (r3dot - C(3,:)*w)];
+
+% Closed loop dynamics
+xdot    = subs(simplify(f + g*U),[v1;v2;v3],K*e)
 

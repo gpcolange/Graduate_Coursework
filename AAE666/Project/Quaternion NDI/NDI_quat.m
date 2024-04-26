@@ -4,7 +4,7 @@ close all
 clc
 
 %% Setup Plant
-syms Ixx Iyy Izz Ixz w1 w2 w3 q1 q2 q3 q4 u1 u2 u3 rddot v real;
+syms Ixx Iyy Izz Ixz w1 w2 w3 q1 q2 q3 q4 u1 u2 u3 r1ddot r2ddot r3ddot v1 v2 v3 real;
 
 % Moment of Inertia Tensor
 I       = [Ixx 0 -Ixz; 0 Iyy 0; -Ixz 0 Izz];
@@ -53,8 +53,10 @@ F       = Lf2h;
 G       = LgLfh;
 
 % Control Law: U = inv(G)*(-F + rddot + v)
+rddot   = [r1ddot;r2ddot;r3ddot];
+v       = [v1;v2;v3];
 U       = simplify(G\(-F + rddot + v));
-U_hand  = inv(1/2*alpha*inv(I))*(1/4*skew(w)*alpha*w + 1/4*w*rho'*w + ...
+U_hand  = (2*I*inv(alpha))*(1/4*skew(w)*alpha*w + 1/4*w*rho'*w + ...
           1/2*alpha*inv(I)*(cross(w,I*w)) + rddot + v);
 simplify(U - U_hand);
 
@@ -62,7 +64,7 @@ simplify(U - U_hand);
 yddot   = simplify(F + G*U)
 
 % Zero Dynamics: y = ydot = 0, yddot = 0 = rddot + v
-xdot0   = subs(f + g*U,[rho;rddot;v],zeros(5,1))
+xdot0   = subs(f + g*U,[rho;r1ddot;r2ddot;r3ddot;v1;v2;v3],zeros(9,1))
 
 % Update zero dynamics with q4 ~= 0, w = wdot = 0;
 xdot0   = subs(xdot0,w,zeros(3,1))
