@@ -1,0 +1,1 @@
+Didn't work due to quaternion tracking error being non additive.
