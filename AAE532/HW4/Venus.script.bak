@@ -1,0 +1,157 @@
+%General Mission Analysis Tool(GMAT) Script
+%Created: 2024-09-28 14:10:45
+
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft Sat;
+GMAT Sat.DateFormat = UTCGregorian;
+GMAT Sat.Epoch = '27 Sep 2024 11:59:28.000';
+GMAT Sat.CoordinateSystem = Venus2000Eq;
+GMAT Sat.DisplayStateType = Keplerian;
+GMAT Sat.SMA = -302595.0000000307;
+GMAT Sat.ECC = 1.200000000194987;
+GMAT Sat.INC = 0;
+GMAT Sat.RAAN = 0;
+GMAT Sat.AOP = 360;
+GMAT Sat.TA = 239.9999999999953;
+GMAT Sat.DryMass = 850;
+GMAT Sat.Cd = 2.2;
+GMAT Sat.Cr = 1.8;
+GMAT Sat.DragArea = 15;
+GMAT Sat.SRPArea = 1;
+GMAT Sat.SPADDragScaleFactor = 1;
+GMAT Sat.SPADSRPScaleFactor = 1;
+GMAT Sat.AtmosDensityScaleFactor = 1;
+GMAT Sat.ExtendedMassPropertiesModel = 'None';
+GMAT Sat.NAIFId = -10000001;
+GMAT Sat.NAIFIdReferenceFrame = -9000001;
+GMAT Sat.OrbitColor = Red;
+GMAT Sat.TargetColor = Teal;
+GMAT Sat.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT Sat.CdSigma = 1e+70;
+GMAT Sat.CrSigma = 1e+70;
+GMAT Sat.Id = 'SatId';
+GMAT Sat.Attitude = CoordinateSystemFixed;
+GMAT Sat.SPADSRPInterpolationMethod = Bilinear;
+GMAT Sat.SPADSRPScaleFactorSigma = 1e+70;
+GMAT Sat.SPADDragInterpolationMethod = Bilinear;
+GMAT Sat.SPADDragScaleFactorSigma = 1e+70;
+GMAT Sat.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT Sat.ModelFile = 'aura.3ds';
+GMAT Sat.ModelOffsetX = 0;
+GMAT Sat.ModelOffsetY = 0;
+GMAT Sat.ModelOffsetZ = 0;
+GMAT Sat.ModelRotationX = 0;
+GMAT Sat.ModelRotationY = 0;
+GMAT Sat.ModelRotationZ = 0;
+GMAT Sat.ModelScale = 1;
+GMAT Sat.AttitudeDisplayStateType = 'Quaternion';
+GMAT Sat.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT Sat.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT Sat.EulerAngleSequence = '321';
+
+
+
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel VenusTwoBody_ForceModel;
+GMAT VenusTwoBody_ForceModel.CentralBody = Venus;
+GMAT VenusTwoBody_ForceModel.PrimaryBodies = {Venus};
+GMAT VenusTwoBody_ForceModel.Drag = None;
+GMAT VenusTwoBody_ForceModel.SRP = Off;
+GMAT VenusTwoBody_ForceModel.RelativisticCorrection = Off;
+GMAT VenusTwoBody_ForceModel.ErrorControl = RSSStep;
+GMAT VenusTwoBody_ForceModel.GravityField.Venus.Degree = 0;
+GMAT VenusTwoBody_ForceModel.GravityField.Venus.Order = 0;
+GMAT VenusTwoBody_ForceModel.GravityField.Venus.StmLimit = 100;
+GMAT VenusTwoBody_ForceModel.GravityField.Venus.PotentialFile = 'MGNP180U.cof';
+GMAT VenusTwoBody_ForceModel.GravityField.Venus.TideModel = 'None';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator VenusTwoBody;
+GMAT VenusTwoBody.FM = VenusTwoBody_ForceModel;
+GMAT VenusTwoBody.Type = RungeKutta89;
+GMAT VenusTwoBody.InitialStepSize = 1;
+GMAT VenusTwoBody.Accuracy = 9.999999999999999e-12;
+GMAT VenusTwoBody.MinStep = 0.001;
+GMAT VenusTwoBody.MaxStep = 2700;
+GMAT VenusTwoBody.MaxStepAttempts = 100;
+GMAT VenusTwoBody.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Coordinate Systems
+%----------------------------------------
+
+Create CoordinateSystem Venus2000Eq;
+GMAT Venus2000Eq.Origin = Venus;
+GMAT Venus2000Eq.Axes = MJ2000Eq;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create OrbitView DefaultOrbitView;
+GMAT DefaultOrbitView.SolverIterations = Current;
+GMAT DefaultOrbitView.UpperLeft = [ 0.002352941176470588 0 ];
+GMAT DefaultOrbitView.Size = [ 0.8 0.8501228501228502 ];
+GMAT DefaultOrbitView.RelativeZOrder = 6;
+GMAT DefaultOrbitView.Maximized = false;
+GMAT DefaultOrbitView.Add = {Sat, Venus};
+GMAT DefaultOrbitView.CoordinateSystem = Venus2000Eq;
+GMAT DefaultOrbitView.DrawObject = [ true true ];
+GMAT DefaultOrbitView.DataCollectFrequency = 1;
+GMAT DefaultOrbitView.UpdatePlotFrequency = 50;
+GMAT DefaultOrbitView.NumPointsToRedraw = 0;
+GMAT DefaultOrbitView.ShowPlot = true;
+GMAT DefaultOrbitView.MaxPlotPoints = 20000;
+GMAT DefaultOrbitView.ShowLabels = true;
+GMAT DefaultOrbitView.ViewPointReference = Venus;
+GMAT DefaultOrbitView.ViewPointVector = [ 0 0 1000000 ];
+GMAT DefaultOrbitView.ViewDirection = Venus;
+GMAT DefaultOrbitView.ViewScaleFactor = 1;
+GMAT DefaultOrbitView.ViewUpCoordinateSystem = Venus2000Eq;
+GMAT DefaultOrbitView.ViewUpAxis = Z;
+GMAT DefaultOrbitView.EclipticPlane = Off;
+GMAT DefaultOrbitView.XYPlane = On;
+GMAT DefaultOrbitView.WireFrame = Off;
+GMAT DefaultOrbitView.Axes = On;
+GMAT DefaultOrbitView.Grid = Off;
+GMAT DefaultOrbitView.SunLine = Off;
+GMAT DefaultOrbitView.UseInitialView = On;
+GMAT DefaultOrbitView.StarCount = 7000;
+GMAT DefaultOrbitView.EnableStars = Off;
+GMAT DefaultOrbitView.EnableConstellations = Off;
+
+Create ReportFile VenusReport;
+GMAT VenusReport.SolverIterations = Current;
+GMAT VenusReport.UpperLeft = [ 0 0 ];
+GMAT VenusReport.Size = [ 0 0 ];
+GMAT VenusReport.RelativeZOrder = 0;
+GMAT VenusReport.Maximized = false;
+GMAT VenusReport.Filename = 'HW4_3_Venus.txt';
+GMAT VenusReport.Precision = 16;
+GMAT VenusReport.Add = {Sat.Venus.TA, Sat.Venus2000Eq.FPA, Sat.Venus.HMAG, Sat.Venus.RMAG, Sat.Venus.SemilatusRectum, Sat.Venus2000Eq.VMAG, Sat.Venus.VelPeriapsis, Sat.Venus2000Eq.BVectorMag};
+GMAT VenusReport.WriteHeaders = true;
+GMAT VenusReport.LeftJustify = On;
+GMAT VenusReport.ZeroFill = Off;
+GMAT VenusReport.FixedWidth = true;
+GMAT VenusReport.Delimiter = ' ';
+GMAT VenusReport.ColumnWidth = 23;
+GMAT VenusReport.WriteReport = true;
+
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+Propagate VenusTwoBody(Sat) {Sat.Venus.TA = 120};
