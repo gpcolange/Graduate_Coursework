@@ -1,0 +1,38 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\noindent \textbf{Problem 2d)} \\
+\\
+To check the assumption of the two-body problem, one can analyze the net perturbation accelerations created by the Sun and Moon on the space station – Earth system. Assume the four bodies are aligned as such: Sun – Moon – SS-Earth, and the orbital radius is equal to the semi-major axis of each respective orbit. Defining the positive radial direction as outward from the Earth, we obtain the following position vectors. 
+
+\begin{equation}
+	\begin{aligned}
+		& \bar{r}_{earth,sun} = 149597898 \ \hat{r} \ [km] \\
+		& \bar{r}_{earth,moon}  = 384400 \ \hat{r} \ [km] \\
+		& \bar{r}_{earth,ss}   = 114806.4534 \ \hat{r} \ [km] \\
+		& \bar{r}_{ss,sun}  = \bar{r}_{earth,sun} - \bar{r}_{earth,ss} = 149483091.5466  \ \hat{r} \ [km] \\
+		& \bar{r}_{ss,moon}  = \bar{r}_{earth,moon} - \bar{r}_{earth,ss} = 269593.5466\ \hat{r} \ [km] \\
+	\end{aligned}
+\end{equation} 
+\\
+The pertubation accelerations for the sun and moon are given below.
+
+\begin{equation}
+	\begin{aligned}
+		& |\bar{a}_{pert,sun}| = \mu_{sun}(\frac{\bar{r}_{ss,sun}}{r_{ss,sun}^3} - \frac{\bar{r}_{earth,sun}}{r_{earth,sun}^3}) =  9.11 \times 10^{-9} \ [km/s^2]\\
+		& |\bar{a}_{pert,moon}|  = \mu_{moon}(\frac{\bar{r}_{ss,moon}}{r_{ss,moon}^3} - \frac{\bar{r}_{earth,moon}}{r_{earth,moon}^3})  = 3.43 \times 10^{-8} \ [km/s^2]
+	\end{aligned}
+\end{equation} 
+\\
+The dominant acceleration of the space station due to the Earth is given below.
+\begin{equation}
+	\begin{aligned}
+		& |\bar{a}_{earth,ss}| = \mu_{earth}(\frac{\bar{r}_{earth,ss}}{r_{earth,ss}^3}) =  3.02 \times 10^{-5} \ [km/s^2]\\
+	\end{aligned}
+\end{equation} 
+\\
+The dominant acceleration is 3 orders of magnitude larger than the pertubring acceleration of the Moon, and 4 orders of magnitude larger than the perturbing acceleration of the Sun. Therefore, the effects of the Sun and Moon can be neglected, and the two-body problem stands to be a reasonable assumption, and should provide good results for a preliminary analysis. These findings are verified with a GMAT simulation shown on the following page, where three space station orbits are plotted over the course of 10 orbital periods about the Earth. The first being the space station-Earth system, the second being a space station-Earth-Moon system, and the final being a space station-Earth-Moon-Sun system. All three orbits are nearly identical. 
+
+\end{document}

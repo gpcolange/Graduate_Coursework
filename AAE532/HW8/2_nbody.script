@@ -1,0 +1,327 @@
+%General Mission Analysis Tool(GMAT) Script
+%Created: 2024-10-30 18:31:44
+
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft Sat;
+GMAT Sat.DateFormat = UTCGregorian;
+GMAT Sat.Epoch = '30 Oct 2024 11:59:28.000';
+GMAT Sat.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat.DisplayStateType = Keplerian;
+GMAT Sat.SMA = 114806.4534;
+GMAT Sat.ECC = 2.558166116637079e-16;
+GMAT Sat.INC = 0;
+GMAT Sat.RAAN = 0;
+GMAT Sat.AOP = 0;
+GMAT Sat.TA = 0;
+GMAT Sat.DryMass = 850;
+GMAT Sat.Cd = 2.2;
+GMAT Sat.Cr = 1.8;
+GMAT Sat.DragArea = 15;
+GMAT Sat.SRPArea = 1;
+GMAT Sat.SPADDragScaleFactor = 1;
+GMAT Sat.SPADSRPScaleFactor = 1;
+GMAT Sat.AtmosDensityScaleFactor = 1;
+GMAT Sat.ExtendedMassPropertiesModel = 'None';
+GMAT Sat.NAIFId = -10001001;
+GMAT Sat.NAIFIdReferenceFrame = -9001001;
+GMAT Sat.OrbitColor = Red;
+GMAT Sat.TargetColor = Teal;
+GMAT Sat.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT Sat.CdSigma = 1e+70;
+GMAT Sat.CrSigma = 1e+70;
+GMAT Sat.Id = 'SatId';
+GMAT Sat.Attitude = CoordinateSystemFixed;
+GMAT Sat.SPADSRPInterpolationMethod = Bilinear;
+GMAT Sat.SPADSRPScaleFactorSigma = 1e+70;
+GMAT Sat.SPADDragInterpolationMethod = Bilinear;
+GMAT Sat.SPADDragScaleFactorSigma = 1e+70;
+GMAT Sat.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT Sat.ModelFile = 'aura.3ds';
+GMAT Sat.ModelOffsetX = 0;
+GMAT Sat.ModelOffsetY = 0;
+GMAT Sat.ModelOffsetZ = 0;
+GMAT Sat.ModelRotationX = 0;
+GMAT Sat.ModelRotationY = 0;
+GMAT Sat.ModelRotationZ = 0;
+GMAT Sat.ModelScale = 1;
+GMAT Sat.AttitudeDisplayStateType = 'Quaternion';
+GMAT Sat.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT Sat.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT Sat.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft Sat_Moon;
+GMAT Sat_Moon.DateFormat = UTCGregorian;
+GMAT Sat_Moon.Epoch = '30 Oct 2024 11:59:28.000';
+GMAT Sat_Moon.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat_Moon.DisplayStateType = Keplerian;
+GMAT Sat_Moon.SMA = 114806.4534;
+GMAT Sat_Moon.ECC = 2.558166116637079e-16;
+GMAT Sat_Moon.INC = 0;
+GMAT Sat_Moon.RAAN = 0;
+GMAT Sat_Moon.AOP = 0;
+GMAT Sat_Moon.TA = 0;
+GMAT Sat_Moon.DryMass = 850;
+GMAT Sat_Moon.Cd = 2.2;
+GMAT Sat_Moon.Cr = 1.8;
+GMAT Sat_Moon.DragArea = 15;
+GMAT Sat_Moon.SRPArea = 1;
+GMAT Sat_Moon.SPADDragScaleFactor = 1;
+GMAT Sat_Moon.SPADSRPScaleFactor = 1;
+GMAT Sat_Moon.AtmosDensityScaleFactor = 1;
+GMAT Sat_Moon.ExtendedMassPropertiesModel = 'None';
+GMAT Sat_Moon.NAIFId = -10001001;
+GMAT Sat_Moon.NAIFIdReferenceFrame = -9001001;
+GMAT Sat_Moon.OrbitColor = [128 255 0];
+GMAT Sat_Moon.TargetColor = Teal;
+GMAT Sat_Moon.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT Sat_Moon.CdSigma = 1e+70;
+GMAT Sat_Moon.CrSigma = 1e+70;
+GMAT Sat_Moon.Id = 'SatId';
+GMAT Sat_Moon.Attitude = CoordinateSystemFixed;
+GMAT Sat_Moon.SPADSRPInterpolationMethod = Bilinear;
+GMAT Sat_Moon.SPADSRPScaleFactorSigma = 1e+70;
+GMAT Sat_Moon.SPADDragInterpolationMethod = Bilinear;
+GMAT Sat_Moon.SPADDragScaleFactorSigma = 1e+70;
+GMAT Sat_Moon.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT Sat_Moon.ModelFile = 'aura.3ds';
+GMAT Sat_Moon.ModelOffsetX = 0;
+GMAT Sat_Moon.ModelOffsetY = 0;
+GMAT Sat_Moon.ModelOffsetZ = 0;
+GMAT Sat_Moon.ModelRotationX = 0;
+GMAT Sat_Moon.ModelRotationY = 0;
+GMAT Sat_Moon.ModelRotationZ = 0;
+GMAT Sat_Moon.ModelScale = 1;
+GMAT Sat_Moon.AttitudeDisplayStateType = 'Quaternion';
+GMAT Sat_Moon.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT Sat_Moon.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT Sat_Moon.EulerAngleSequence = '321';
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft Sat_MoonSun;
+GMAT Sat_MoonSun.DateFormat = UTCGregorian;
+GMAT Sat_MoonSun.Epoch = '30 Oct 2024 11:59:28.000';
+GMAT Sat_MoonSun.CoordinateSystem = EarthMJ2000Eq;
+GMAT Sat_MoonSun.DisplayStateType = Keplerian;
+GMAT Sat_MoonSun.SMA = 114806.4534;
+GMAT Sat_MoonSun.ECC = 2.558166116637079e-16;
+GMAT Sat_MoonSun.INC = 0;
+GMAT Sat_MoonSun.RAAN = 0;
+GMAT Sat_MoonSun.AOP = 0;
+GMAT Sat_MoonSun.TA = 0;
+GMAT Sat_MoonSun.DryMass = 850;
+GMAT Sat_MoonSun.Cd = 2.2;
+GMAT Sat_MoonSun.Cr = 1.8;
+GMAT Sat_MoonSun.DragArea = 15;
+GMAT Sat_MoonSun.SRPArea = 1;
+GMAT Sat_MoonSun.SPADDragScaleFactor = 1;
+GMAT Sat_MoonSun.SPADSRPScaleFactor = 1;
+GMAT Sat_MoonSun.AtmosDensityScaleFactor = 1;
+GMAT Sat_MoonSun.ExtendedMassPropertiesModel = 'None';
+GMAT Sat_MoonSun.NAIFId = -10001001;
+GMAT Sat_MoonSun.NAIFIdReferenceFrame = -9001001;
+GMAT Sat_MoonSun.OrbitColor = [0 255 255];
+GMAT Sat_MoonSun.TargetColor = Teal;
+GMAT Sat_MoonSun.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT Sat_MoonSun.CdSigma = 1e+70;
+GMAT Sat_MoonSun.CrSigma = 1e+70;
+GMAT Sat_MoonSun.Id = 'SatId';
+GMAT Sat_MoonSun.Attitude = CoordinateSystemFixed;
+GMAT Sat_MoonSun.SPADSRPInterpolationMethod = Bilinear;
+GMAT Sat_MoonSun.SPADSRPScaleFactorSigma = 1e+70;
+GMAT Sat_MoonSun.SPADDragInterpolationMethod = Bilinear;
+GMAT Sat_MoonSun.SPADDragScaleFactorSigma = 1e+70;
+GMAT Sat_MoonSun.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT Sat_MoonSun.ModelFile = 'aura.3ds';
+GMAT Sat_MoonSun.ModelOffsetX = 0;
+GMAT Sat_MoonSun.ModelOffsetY = 0;
+GMAT Sat_MoonSun.ModelOffsetZ = 0;
+GMAT Sat_MoonSun.ModelRotationX = 0;
+GMAT Sat_MoonSun.ModelRotationY = 0;
+GMAT Sat_MoonSun.ModelRotationZ = 0;
+GMAT Sat_MoonSun.ModelScale = 1;
+GMAT Sat_MoonSun.AttitudeDisplayStateType = 'Quaternion';
+GMAT Sat_MoonSun.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT Sat_MoonSun.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT Sat_MoonSun.EulerAngleSequence = '321';
+
+
+
+
+
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel EarthPointModel_ForceModel;
+GMAT EarthPointModel_ForceModel.CentralBody = Earth;
+GMAT EarthPointModel_ForceModel.PrimaryBodies = {Earth};
+GMAT EarthPointModel_ForceModel.Drag = None;
+GMAT EarthPointModel_ForceModel.SRP = Off;
+GMAT EarthPointModel_ForceModel.RelativisticCorrection = Off;
+GMAT EarthPointModel_ForceModel.ErrorControl = RSSStep;
+GMAT EarthPointModel_ForceModel.GravityField.Earth.Degree = 0;
+GMAT EarthPointModel_ForceModel.GravityField.Earth.Order = 0;
+GMAT EarthPointModel_ForceModel.GravityField.Earth.StmLimit = 100;
+GMAT EarthPointModel_ForceModel.GravityField.Earth.PotentialFile = 'JGM2.cof';
+GMAT EarthPointModel_ForceModel.GravityField.Earth.TideModel = 'None';
+
+Create ForceModel EarthMoon_ForceModel;
+GMAT EarthMoon_ForceModel.CentralBody = Earth;
+GMAT EarthMoon_ForceModel.PrimaryBodies = {Earth};
+GMAT EarthMoon_ForceModel.PointMasses = {Luna};
+GMAT EarthMoon_ForceModel.Drag = None;
+GMAT EarthMoon_ForceModel.SRP = Off;
+GMAT EarthMoon_ForceModel.RelativisticCorrection = Off;
+GMAT EarthMoon_ForceModel.ErrorControl = RSSStep;
+GMAT EarthMoon_ForceModel.GravityField.Earth.Degree = 0;
+GMAT EarthMoon_ForceModel.GravityField.Earth.Order = 0;
+GMAT EarthMoon_ForceModel.GravityField.Earth.StmLimit = 100;
+GMAT EarthMoon_ForceModel.GravityField.Earth.PotentialFile = 'JGM2.cof';
+GMAT EarthMoon_ForceModel.GravityField.Earth.TideModel = 'None';
+
+Create ForceModel EarthMoonSun_ForceModel;
+GMAT EarthMoonSun_ForceModel.CentralBody = Earth;
+GMAT EarthMoonSun_ForceModel.PrimaryBodies = {Earth};
+GMAT EarthMoonSun_ForceModel.PointMasses = {Luna, Sun};
+GMAT EarthMoonSun_ForceModel.Drag = None;
+GMAT EarthMoonSun_ForceModel.SRP = Off;
+GMAT EarthMoonSun_ForceModel.RelativisticCorrection = Off;
+GMAT EarthMoonSun_ForceModel.ErrorControl = RSSStep;
+GMAT EarthMoonSun_ForceModel.GravityField.Earth.Degree = 0;
+GMAT EarthMoonSun_ForceModel.GravityField.Earth.Order = 0;
+GMAT EarthMoonSun_ForceModel.GravityField.Earth.StmLimit = 100;
+GMAT EarthMoonSun_ForceModel.GravityField.Earth.PotentialFile = 'JGM2.cof';
+GMAT EarthMoonSun_ForceModel.GravityField.Earth.TideModel = 'None';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator EarthPointModel;
+GMAT EarthPointModel.FM = EarthPointModel_ForceModel;
+GMAT EarthPointModel.Type = RungeKutta89;
+GMAT EarthPointModel.InitialStepSize = 60;
+GMAT EarthPointModel.Accuracy = 9.999999999999999e-12;
+GMAT EarthPointModel.MinStep = 0.001;
+GMAT EarthPointModel.MaxStep = 2700;
+GMAT EarthPointModel.MaxStepAttempts = 50;
+GMAT EarthPointModel.StopIfAccuracyIsViolated = true;
+
+Create Propagator EarthMoon;
+GMAT EarthMoon.FM = EarthMoon_ForceModel;
+GMAT EarthMoon.Type = RungeKutta89;
+GMAT EarthMoon.InitialStepSize = 60;
+GMAT EarthMoon.Accuracy = 9.999999999999999e-12;
+GMAT EarthMoon.MinStep = 0.001;
+GMAT EarthMoon.MaxStep = 2700;
+GMAT EarthMoon.MaxStepAttempts = 50;
+GMAT EarthMoon.StopIfAccuracyIsViolated = true;
+
+Create Propagator EarthMoonSun;
+GMAT EarthMoonSun.FM = EarthMoonSun_ForceModel;
+GMAT EarthMoonSun.Type = RungeKutta89;
+GMAT EarthMoonSun.InitialStepSize = 60;
+GMAT EarthMoonSun.Accuracy = 9.999999999999999e-12;
+GMAT EarthMoonSun.MinStep = 0.001;
+GMAT EarthMoonSun.MaxStep = 2700;
+GMAT EarthMoonSun.MaxStepAttempts = 50;
+GMAT EarthMoonSun.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Burns
+%----------------------------------------
+
+Create ImpulsiveBurn HohmannBurn1;
+GMAT HohmannBurn1.CoordinateSystem = Local;
+GMAT HohmannBurn1.Origin = Earth;
+GMAT HohmannBurn1.Axes = VNB;
+GMAT HohmannBurn1.Element1 = 2.90731359654794;
+GMAT HohmannBurn1.Element2 = 0;
+GMAT HohmannBurn1.Element3 = 0;
+GMAT HohmannBurn1.DecrementMass = false;
+GMAT HohmannBurn1.Isp = 300;
+GMAT HohmannBurn1.GravitationalAccel = 9.81;
+
+Create ImpulsiveBurn HohmannBurn2;
+GMAT HohmannBurn2.CoordinateSystem = Local;
+GMAT HohmannBurn2.Origin = Earth;
+GMAT HohmannBurn2.Axes = VNB;
+GMAT HohmannBurn2.Element1 = 1.24744992674836;
+GMAT HohmannBurn2.Element2 = 0;
+GMAT HohmannBurn2.Element3 = 0;
+GMAT HohmannBurn2.DecrementMass = false;
+GMAT HohmannBurn2.Isp = 300;
+GMAT HohmannBurn2.GravitationalAccel = 9.81;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create OrbitView DefaultOrbitView;
+GMAT DefaultOrbitView.SolverIterations = Current;
+GMAT DefaultOrbitView.UpperLeft = [ 0 -0.09828009828009827 ];
+GMAT DefaultOrbitView.Size = [ 0.8 0.8501228501228502 ];
+GMAT DefaultOrbitView.RelativeZOrder = 10;
+GMAT DefaultOrbitView.Maximized = false;
+GMAT DefaultOrbitView.Add = {Sat, Sat_Moon, Sat_MoonSun, Earth};
+GMAT DefaultOrbitView.CoordinateSystem = EarthMJ2000Eq;
+GMAT DefaultOrbitView.DrawObject = [ true true true true ];
+GMAT DefaultOrbitView.DataCollectFrequency = 1;
+GMAT DefaultOrbitView.UpdatePlotFrequency = 50;
+GMAT DefaultOrbitView.NumPointsToRedraw = 1;
+GMAT DefaultOrbitView.ShowPlot = true;
+GMAT DefaultOrbitView.MaxPlotPoints = 20000;
+GMAT DefaultOrbitView.ShowLabels = true;
+GMAT DefaultOrbitView.ViewPointReference = Earth;
+GMAT DefaultOrbitView.ViewPointVector = [ 0 0 300000 ];
+GMAT DefaultOrbitView.ViewDirection = Earth;
+GMAT DefaultOrbitView.ViewScaleFactor = 1;
+GMAT DefaultOrbitView.ViewUpCoordinateSystem = EarthMJ2000Eq;
+GMAT DefaultOrbitView.ViewUpAxis = Z;
+GMAT DefaultOrbitView.EclipticPlane = Off;
+GMAT DefaultOrbitView.XYPlane = On;
+GMAT DefaultOrbitView.WireFrame = Off;
+GMAT DefaultOrbitView.Axes = On;
+GMAT DefaultOrbitView.Grid = On;
+GMAT DefaultOrbitView.SunLine = Off;
+GMAT DefaultOrbitView.UseInitialView = On;
+GMAT DefaultOrbitView.StarCount = 7000;
+GMAT DefaultOrbitView.EnableStars = Off;
+GMAT DefaultOrbitView.EnableConstellations = Off;
+
+Create ReportFile ReportFile1;
+GMAT ReportFile1.SolverIterations = Current;
+GMAT ReportFile1.UpperLeft = [ 0.1129411764705882 0.2358722358722359 ];
+GMAT ReportFile1.Size = [ 0.5994117647058823 0.7985257985257985 ];
+GMAT ReportFile1.RelativeZOrder = 77;
+GMAT ReportFile1.Maximized = false;
+GMAT ReportFile1.Filename = 'ReportFile1.txt';
+GMAT ReportFile1.Precision = 16;
+GMAT ReportFile1.Add = {Sat.Earth.TA, Sat_Moon.Earth.TA, Sat_MoonSun.Earth.TA};
+GMAT ReportFile1.WriteHeaders = true;
+GMAT ReportFile1.LeftJustify = On;
+GMAT ReportFile1.ZeroFill = Off;
+GMAT ReportFile1.FixedWidth = true;
+GMAT ReportFile1.Delimiter = ' ';
+GMAT ReportFile1.ColumnWidth = 23;
+GMAT ReportFile1.WriteReport = true;
+
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+Propagate 'SSalphaOrbit' EarthPointModel(Sat) EarthMoon(Sat_Moon) EarthMoonSun(Sat_MoonSun) {Sat.ElapsedSecs = 3871332.13060295, Sat_Moon.ElapsedSecs = 3871332.13060295, Sat_MoonSun.ElapsedSecs = 3871332.13060295};

@@ -1,0 +1,245 @@
+%General Mission Analysis Tool(GMAT) Script
+%Created: 2024-10-31 17:02:19
+
+
+%----------------------------------------
+%---------- Spacecraft
+%----------------------------------------
+
+Create Spacecraft Sat;
+GMAT Sat.DateFormat = UTCGregorian;
+GMAT Sat.Epoch = '31 Oct 2024 11:59:28.000';
+GMAT Sat.CoordinateSystem = Moon2000Eq;
+GMAT Sat.DisplayStateType = Keplerian;
+GMAT Sat.SMA = 1838.200000000023;
+GMAT Sat.ECC = 6.327065792501305e-15;
+GMAT Sat.INC = 0;
+GMAT Sat.RAAN = 0;
+GMAT Sat.AOP = 0;
+GMAT Sat.TA = 0;
+GMAT Sat.DryMass = 850;
+GMAT Sat.Cd = 2.2;
+GMAT Sat.Cr = 1.8;
+GMAT Sat.DragArea = 15;
+GMAT Sat.SRPArea = 1;
+GMAT Sat.SPADDragScaleFactor = 1;
+GMAT Sat.SPADSRPScaleFactor = 1;
+GMAT Sat.AtmosDensityScaleFactor = 1;
+GMAT Sat.ExtendedMassPropertiesModel = 'None';
+GMAT Sat.NAIFId = -10001001;
+GMAT Sat.NAIFIdReferenceFrame = -9001001;
+GMAT Sat.OrbitColor = Red;
+GMAT Sat.TargetColor = Teal;
+GMAT Sat.OrbitErrorCovariance = [ 1e+70 0 0 0 0 0 ; 0 1e+70 0 0 0 0 ; 0 0 1e+70 0 0 0 ; 0 0 0 1e+70 0 0 ; 0 0 0 0 1e+70 0 ; 0 0 0 0 0 1e+70 ];
+GMAT Sat.CdSigma = 1e+70;
+GMAT Sat.CrSigma = 1e+70;
+GMAT Sat.Id = 'SatId';
+GMAT Sat.Attitude = CoordinateSystemFixed;
+GMAT Sat.SPADSRPInterpolationMethod = Bilinear;
+GMAT Sat.SPADSRPScaleFactorSigma = 1e+70;
+GMAT Sat.SPADDragInterpolationMethod = Bilinear;
+GMAT Sat.SPADDragScaleFactorSigma = 1e+70;
+GMAT Sat.AtmosDensityScaleFactorSigma = 1e+70;
+GMAT Sat.ModelFile = 'aura.3ds';
+GMAT Sat.ModelOffsetX = 0;
+GMAT Sat.ModelOffsetY = 0;
+GMAT Sat.ModelOffsetZ = 0;
+GMAT Sat.ModelRotationX = 0;
+GMAT Sat.ModelRotationY = 0;
+GMAT Sat.ModelRotationZ = 0;
+GMAT Sat.ModelScale = 1;
+GMAT Sat.AttitudeDisplayStateType = 'Quaternion';
+GMAT Sat.AttitudeRateDisplayStateType = 'AngularVelocity';
+GMAT Sat.AttitudeCoordinateSystem = EarthMJ2000Eq;
+GMAT Sat.EulerAngleSequence = '321';
+
+
+
+
+
+%----------------------------------------
+%---------- ForceModels
+%----------------------------------------
+
+Create ForceModel MoonPointModel_ForceModel;
+GMAT MoonPointModel_ForceModel.CentralBody = Luna;
+GMAT MoonPointModel_ForceModel.PrimaryBodies = {Luna};
+GMAT MoonPointModel_ForceModel.Drag = None;
+GMAT MoonPointModel_ForceModel.SRP = Off;
+GMAT MoonPointModel_ForceModel.RelativisticCorrection = Off;
+GMAT MoonPointModel_ForceModel.ErrorControl = RSSStep;
+GMAT MoonPointModel_ForceModel.GravityField.Luna.Degree = 0;
+GMAT MoonPointModel_ForceModel.GravityField.Luna.Order = 0;
+GMAT MoonPointModel_ForceModel.GravityField.Luna.StmLimit = 100;
+GMAT MoonPointModel_ForceModel.GravityField.Luna.PotentialFile = 'LP165P.cof';
+GMAT MoonPointModel_ForceModel.GravityField.Luna.TideModel = 'None';
+
+%----------------------------------------
+%---------- Propagators
+%----------------------------------------
+
+Create Propagator MoonPointModel;
+GMAT MoonPointModel.FM = MoonPointModel_ForceModel;
+GMAT MoonPointModel.Type = RungeKutta89;
+GMAT MoonPointModel.InitialStepSize = 60;
+GMAT MoonPointModel.Accuracy = 9.999999999999999e-12;
+GMAT MoonPointModel.MinStep = 0.001;
+GMAT MoonPointModel.MaxStep = 100;
+GMAT MoonPointModel.MaxStepAttempts = 50;
+GMAT MoonPointModel.StopIfAccuracyIsViolated = true;
+
+%----------------------------------------
+%---------- Burns
+%----------------------------------------
+
+Create ImpulsiveBurn BiellipticBurn1;
+GMAT BiellipticBurn1.CoordinateSystem = Local;
+GMAT BiellipticBurn1.Origin = Luna;
+GMAT BiellipticBurn1.Axes = VNB;
+GMAT BiellipticBurn1.Element1 = 0.572251592887784;
+GMAT BiellipticBurn1.Element2 = 0;
+GMAT BiellipticBurn1.Element3 = 0;
+GMAT BiellipticBurn1.DecrementMass = false;
+GMAT BiellipticBurn1.Isp = 300;
+GMAT BiellipticBurn1.GravitationalAccel = 9.81;
+
+%----------------------------------------
+%---------- Burns
+%----------------------------------------
+
+Create ImpulsiveBurn PlaneChange;
+GMAT PlaneChange.CoordinateSystem = Local;
+GMAT PlaneChange.Origin = Luna;
+GMAT PlaneChange.Axes = VNB;
+GMAT PlaneChange.Element1 = -0.2133666761368;
+GMAT PlaneChange.Element2 = 0.2133666761368;
+GMAT PlaneChange.Element3 = 0;
+GMAT PlaneChange.DecrementMass = false;
+GMAT PlaneChange.Isp = 300;
+GMAT PlaneChange.GravitationalAccel = 9.81;
+
+%----------------------------------------
+%---------- Burns
+%----------------------------------------
+
+Create ImpulsiveBurn BiellipticBurn2;
+GMAT BiellipticBurn2.CoordinateSystem = Local;
+GMAT BiellipticBurn2.Origin = Luna;
+GMAT BiellipticBurn2.Axes = VNB;
+GMAT BiellipticBurn2.Element1 = -0.572251592887784;
+GMAT BiellipticBurn2.Element2 = 0;
+GMAT BiellipticBurn2.Element3 = 0;
+GMAT BiellipticBurn2.DecrementMass = false;
+GMAT BiellipticBurn2.Isp = 300;
+GMAT BiellipticBurn2.GravitationalAccel = 9.81;
+
+%----------------------------------------
+%---------- Coordinate Systems
+%----------------------------------------
+
+Create CoordinateSystem Moon2000Eq;
+GMAT Moon2000Eq.Origin = Luna;
+GMAT Moon2000Eq.Axes = MJ2000Eq;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create OrbitView Z_view;
+GMAT Z_view.SolverIterations = Current;
+GMAT Z_view.UpperLeft = [ 0 -0.1277641277641278 ];
+GMAT Z_view.Size = [ 0.8 0.8501228501228502 ];
+GMAT Z_view.RelativeZOrder = 17;
+GMAT Z_view.Maximized = false;
+GMAT Z_view.Add = {Sat, Luna};
+GMAT Z_view.CoordinateSystem = Moon2000Eq;
+GMAT Z_view.DrawObject = [ true true ];
+GMAT Z_view.DataCollectFrequency = 1;
+GMAT Z_view.UpdatePlotFrequency = 50;
+GMAT Z_view.NumPointsToRedraw = 0;
+GMAT Z_view.ShowPlot = true;
+GMAT Z_view.MaxPlotPoints = 20000;
+GMAT Z_view.ShowLabels = true;
+GMAT Z_view.ViewPointReference = Luna;
+GMAT Z_view.ViewPointVector = [ 0 0 10000 ];
+GMAT Z_view.ViewDirection = Luna;
+GMAT Z_view.ViewScaleFactor = 1;
+GMAT Z_view.ViewUpCoordinateSystem = Moon2000Eq;
+GMAT Z_view.ViewUpAxis = Z;
+GMAT Z_view.EclipticPlane = Off;
+GMAT Z_view.XYPlane = On;
+GMAT Z_view.WireFrame = Off;
+GMAT Z_view.Axes = On;
+GMAT Z_view.Grid = Off;
+GMAT Z_view.SunLine = Off;
+GMAT Z_view.UseInitialView = On;
+GMAT Z_view.StarCount = 7000;
+GMAT Z_view.EnableStars = Off;
+GMAT Z_view.EnableConstellations = On;
+
+Create ReportFile ReportFile1;
+GMAT ReportFile1.SolverIterations = Current;
+GMAT ReportFile1.UpperLeft = [ 0.1405882352941177 0.2936117936117936 ];
+GMAT ReportFile1.Size = [ 0.5894117647058823 0.7776412776412777 ];
+GMAT ReportFile1.RelativeZOrder = 61;
+GMAT ReportFile1.Maximized = false;
+GMAT ReportFile1.Filename = 'ReportFile1.txt';
+GMAT ReportFile1.Precision = 16;
+GMAT ReportFile1.Add = {Sat.ElapsedSecs, Sat.Moon2000Eq.INC, Sat.Luna.TA};
+GMAT ReportFile1.WriteHeaders = true;
+GMAT ReportFile1.LeftJustify = On;
+GMAT ReportFile1.ZeroFill = Off;
+GMAT ReportFile1.FixedWidth = true;
+GMAT ReportFile1.Delimiter = ' ';
+GMAT ReportFile1.ColumnWidth = 23;
+GMAT ReportFile1.WriteReport = true;
+
+%----------------------------------------
+%---------- Subscribers
+%----------------------------------------
+
+Create OrbitView XY_view;
+GMAT XY_view.SolverIterations = Current;
+GMAT XY_view.UpperLeft = [ 0 -0.1277641277641278 ];
+GMAT XY_view.Size = [ 0.8 0.8501228501228502 ];
+GMAT XY_view.RelativeZOrder = 9;
+GMAT XY_view.Maximized = false;
+GMAT XY_view.Add = {Sat, Luna};
+GMAT XY_view.CoordinateSystem = Moon2000Eq;
+GMAT XY_view.DrawObject = [ true true ];
+GMAT XY_view.DataCollectFrequency = 1;
+GMAT XY_view.UpdatePlotFrequency = 50;
+GMAT XY_view.NumPointsToRedraw = 0;
+GMAT XY_view.ShowPlot = true;
+GMAT XY_view.MaxPlotPoints = 20000;
+GMAT XY_view.ShowLabels = true;
+GMAT XY_view.ViewPointReference = Luna;
+GMAT XY_view.ViewPointVector = [ 100000 100000 50000 ];
+GMAT XY_view.ViewDirection = Luna;
+GMAT XY_view.ViewScaleFactor = 1;
+GMAT XY_view.ViewUpCoordinateSystem = Moon2000Eq;
+GMAT XY_view.ViewUpAxis = Z;
+GMAT XY_view.EclipticPlane = Off;
+GMAT XY_view.XYPlane = On;
+GMAT XY_view.WireFrame = Off;
+GMAT XY_view.Axes = On;
+GMAT XY_view.Grid = Off;
+GMAT XY_view.SunLine = Off;
+GMAT XY_view.UseInitialView = On;
+GMAT XY_view.StarCount = 7000;
+GMAT XY_view.EnableStars = Off;
+GMAT XY_view.EnableConstellations = On;
+
+
+%----------------------------------------
+%---------- Mission Sequence
+%----------------------------------------
+
+BeginMissionSequence;
+Propagate Synchronized MoonPointModel(Sat) {Sat.ElapsedSecs = 7072.07563102771, OrbitColor = [255 128 64]};
+Maneuver BiellipticBurn1(Sat);
+Propagate MoonPointModel(Sat) {Sat.ElapsedSecs = 47716.992988378, OrbitColor = [0 255 255]};
+Maneuver PlaneChange(Sat);
+Propagate MoonPointModel(Sat) {Sat.ElapsedSecs = 47716.992988378, OrbitColor = [255 0 128]};
+Maneuver BiellipticBurn2(Sat);
+Propagate MoonPointModel(Sat) {Sat.ElapsedSecs = 7072.07563102771, OrbitColor = [255 255 255]};
