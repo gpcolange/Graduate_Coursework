@@ -1,1 +1,1 @@
-The euler angle error was defined as command minus actual. Not valid as euler angles aren't vectors and can't be subtracted. Actual error would be calculated from rotation matrix. Should've done angular velocity tracking.
+					The euler angle error was defined as command minus actual. This is a valid assumtpion only for small attitude errors, as Euler angles aren't vectors & can't be directly subtracted without potential issues. For larger attitude errors, the error would be calculated from rotation matrices.
